@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import HistoryHeader from './HistoryHeader';
+import HistoryBody from './HistoryBody';
 
 const History = () => {
     return (
@@ -6,11 +8,11 @@ const History = () => {
             <div>
                 <table>
                     <HistoryHeader/>
-                    <HistoryBody />
+                    <HistoryBody/>
                 </table>
             </div>
         </>
     )
 }
 
-export default History
+export default History;

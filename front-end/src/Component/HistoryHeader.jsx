@@ -12,4 +12,4 @@ const HistoryHeader = () => {
     )
 }
 
-export default HistoryHeader
+export default HistoryHeader;

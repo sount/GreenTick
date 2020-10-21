@@ -4,8 +4,10 @@ const HistoryBody = () => {
     return (
         <>
             <div>
-                for ()
+                {/* Dynmica row of table*/}
             </div>
         </>
     )
 }
+
+export default HistoryBody;
