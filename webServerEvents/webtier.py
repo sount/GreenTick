@@ -35,7 +35,7 @@ def get_message():
     return s
 
 def bootapp():
-    app.run(port=8090, threaded=True, host=('0.0.0.0'))
+    app.run(port=8090, threaded=True, host=('127.0.0.1'))
 
 if __name__ == '__main__':
      bootapp()

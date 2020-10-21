@@ -28,7 +28,7 @@ def bootapp():
     #global rdd 
     #rdd = RandomDealData()
     #webServiceStream.bootServices()
-    app.run(debug=True, port=8080, threaded=True, host=('0.0.0.0'))
+    app.run(debug=True, port=8080, threaded=True, host=('127.0.0.1'))
 
 
 if __name__ == "__main__":
