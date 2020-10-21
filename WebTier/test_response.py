@@ -6,13 +6,13 @@ if res.ok:
     print(res.json())
 
 #test historical data
-res = requests.post('http://localhost:8000/historicaldata', json={"token":"1greentickteamforthewin"})
+res = requests.post('http://localhost:8000/historicaldata', json={"token":"greentickteamforthewin"})
 
 if res.ok:
     print(res.json())
 
 # test statistic
-res = requests.post('http://localhost:8000/statistics', json={"token":"1reentickteamforthewin"})
+res = requests.post('http://localhost:8000/statistics', json={"token":"greentickteamforthewin"})
 
 if res.ok:
     print(res.json())
