@@ -1,3 +1,5 @@
+
+import mysql.connector
 import time
 from flask import Flask, Response
 from flask_cors import CORS
@@ -10,8 +12,9 @@ CORS(app)
 
 @app.route('/login')
 def login(json):
-    #usernama =
-    #password =
+    usernama =
+    password =
+    cnx = mysql.connector.connect(user='admin', password='ppp',host="127.0.0.1",port=3306,database='db_grad_cs_1917')
     return Response(login.html, status=200, mimetype='application/json')
 
 @app.route('/statistics')
