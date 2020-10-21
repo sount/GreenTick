@@ -6,7 +6,7 @@ import time
 from flask import Flask, Response, request
 from flask_cors import CORS
 import json
-
+import pandas as pd
 
 SECRET_KEY = "greentickteamforthewin"
 app = Flask(__name__)
@@ -15,38 +15,60 @@ CORS(app)
 @app.route('/login',methods=['GET', 'POST'])
 def login():
 
-    content = request.json
-    testdata = '{"username":"selvyn", "password":"gradprog2016"}'
-    credentials = json.loads(content)
+    credentials = request.json
+
     cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306, database='db_grad_cs_1917')
-
     cursor = cnx.cursor()
-
     cursor.execute('SELECT * FROM users WHERE user_id = %s AND user_pwd = %s',
                    (credentials["username"], credentials["password"]))
-
     account = cursor.fetchone()
 
     # If account exists in accounts table in out database
     if account:
-        # Create session data, we can access this data in other routes
         print('Logged in successfully!')
         response_dict = {"token": SECRET_KEY}
         return jsonify(response_dict)
     else:
-        # Account doesnt exist or username/password incorrect
         print('Incorrect username/password!')
-        return False
+        response_dict = {}
+        return jsonify(response_dict)
 
 
-@app.route('/statistics')
+@app.route('/statistics', methods=['GET', 'POST'])
 def statistics():
-    return Response(eventStream(), mimetype="text/event-stream")
+    statistics_request = request.json
+    if statistics_request["token"] == SECRET_KEY:
+        print("Access Granted!")
+        response_dict = {}
 
-@app.route('/historicaldata')
+        cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
+                                      database='db_grad_cs_1917')
+        cursor = cnx.cursor()
+        cursor.execute('SELECT * FROM deal WHERE deal_time > %s AND deal_time < %s',
+                       (statistics_request["start"], st["password"]))
+        return jsonify(response_dict)
+    else:
+        print("Access Denied")
+        response_dict = {}
+        return jsonify(response_dict)
+
+@app.route('/historicaldata',methods=['GET', 'POST'])
 def historicaldata():
-    return Response(eventStream(), mimetype="text/event-stream")
+    historical_request = request.json
+    if historical_request["token"] == SECRET_KEY:
+        print("Access Granted!")
+        cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
+                                      database='db_grad_cs_1917')
+        query = 'SELECT * FROM deal WHERE deal_time > %s AND deal_time < %s',\
+                (historical_request["start"], historical_request["end"])
 
+        historical_data_dataframe = pd.read_sql(query, cnx)
+        response_dict = historical_data_dataframe.to_json()
+        return jsonify(response_dict)
+    else:
+        print("Access Denied")
+        response_dict = {}
+        return jsonify(response_dict)
 
 def bootapp():
     app.run(port=8000, threaded=True, host=('127.0.0.1'))
