@@ -30,15 +30,14 @@ def _streamSSE(url):
         print(msg)
 
         mycursor = cnx.cursor()
-
-        sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
-        val = ("John", "Highway 21")
+#         TODO: Add deal_counterparty_id
+        sql = "INSERT INTO deal (deal_time, deal_instrument_id, deal_type, deal_amount, deal_quantity) VALUES (%s, %d, %s, %d, %d)"
+        val = (msg['deal_time'], msg['instrumentName'], msg['type'], msg['price'], msg['quantity'])
         mycursor.execute(sql, val)
 
         mydb.commit()
 
         print(mycursor.rowcount, "record inserted.")
-
 
 def connect_to_db():
     cnx = mysql.connector.connect(user='scott', password='password',
