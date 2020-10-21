@@ -29,15 +29,24 @@ def _streamSSE(url):
     for msg in messages:
         print(msg)
 
+        mycursor = cnx.cursor()
+
+        sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
+        val = ("John", "Highway 21")
+        mycursor.execute(sql, val)
+
+        mydb.commit()
+
+        print(mycursor.rowcount, "record inserted.")
 
 
 def connect_to_db():
     cnx = mysql.connector.connect(user='scott', password='password',
                                   host='127.0.0.1',
                                   database='employees')
-    cnx.close()
-
 
 if __name__ == '__main__':
+    connect_to_db()
     _streamSSE('http://127.0.0.1:5000/streamTest/sse')
     # get_deal_data()
+    cnx.close()
