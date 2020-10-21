@@ -1,18 +1,20 @@
 import React from 'react';
 import ConnectionReport from './Component/ConnectionReport';
-import Login from './Component/Login';
 import History from './Component/History';
 import HeaderNavigation from './Component/HeaderNavigation';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import AppFooter from './Component/Footer';
+import LoginSystem from './Component/LoginSystem';
 
 
 function App() {
   return (
     <>
       <HeaderNavigation/>
-      <Login/>
+      <LoginSystem/>
       <ConnectionReport/>
       <History/>
+      <AppFooter/>
     </>
   );
 }
