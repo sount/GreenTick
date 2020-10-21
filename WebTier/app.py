@@ -43,9 +43,13 @@ def statistics():
 
         cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
                                       database='db_grad_cs_1917')
-        cursor = cnx.cursor()
-        cursor.execute('SELECT * FROM deal WHERE deal_time > %s AND deal_time < %s',
-                       (statistics_request["start"], st["password"]))
+
+        #query= 'SELECT * FROM deal WHERE deal_time > %s AND deal_time < %s',
+        #              (statistics_request["start"], statistics_request["password"])
+        test_query = 'SELECT * FROM users'
+
+        statistic_data_dataframe = pd.read_sql(test_query, cnx)
+        response_dict = statistic_data_dataframe.to_json()
         return jsonify(response_dict)
     else:
         print("Access Denied")
@@ -59,10 +63,12 @@ def historicaldata():
         print("Access Granted!")
         cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
                                       database='db_grad_cs_1917')
-        query = 'SELECT * FROM deal WHERE deal_time > %s AND deal_time < %s',\
-                (historical_request["start"], historical_request["end"])
+        #query = 'SELECT * FROM deal WHERE deal_time > %s AND deal_time < %s',\
+        #        (historical_request["start"], historical_request["end"])
 
-        historical_data_dataframe = pd.read_sql(query, cnx)
+        test_query='SELECT * FROM users'
+
+        historical_data_dataframe = pd.read_sql(test_query, cnx)
         response_dict = historical_data_dataframe.to_json()
         return jsonify(response_dict)
     else:
