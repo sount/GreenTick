@@ -7,6 +7,7 @@ class HistoryRow extends Component {
     }
 
     render() {
+
         return(
             <tr>
                 <td>{this.props.history.deal_id}</td>

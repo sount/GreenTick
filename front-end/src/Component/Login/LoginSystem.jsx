@@ -71,8 +71,9 @@ class LoginSystem extends Component {
                             onChange={this.handleChange} 
                         />
                     </Form.Group>
-                </Form>
                     <Button variant="info" type="submit" id="loginButton" block>Submit</Button> 
+                </Form>
+                    
 
             </div>
         )
