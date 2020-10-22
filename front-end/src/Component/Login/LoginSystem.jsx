@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Form } from 'react-bootstrap';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 // Create a basic authentication with axios
 class LoginSystem extends Component {
@@ -27,7 +29,7 @@ class LoginSystem extends Component {
         let b = {"username":username, "password":password}
 
         axios
-            .post("http://localhost:8000/login", b)
+            .post("http://localhost:8080/login", b)
             .then(response => {
                 console.log("res from login", response);
             }
@@ -38,36 +40,45 @@ class LoginSystem extends Component {
 
             event.preventDefault();
     }
-    
+
+    handleClick() {
+        console.log("Tester")
+    }
 
     render() {
         const loginBox = {
-            border : "3px solid #ddd"
+            border : "3px solid #ddd",
+            backgroundColor : "#90EE90",
+            padding : "50px"
         }
 
         return(
             <div style={loginBox}>
-                <form id="login" onSubmit={this.handleSubmit}>
-                    <input 
-                        type="username" 
-                        name="username" 
-                        placerholder="Username" 
-                        value={this.state.username} 
-                        onChange={this.handleChange} 
-                        required
-                    />
+                <Form>
+                    <Form.Group controlId="formGroupUsername">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control 
+                            type="username" 
+                            placeholder="Enter Username" 
+                            value={this.state.username} 
+                            onChange={this.handleChange} 
+                            required
+                        />
+                    </Form.Group>
 
-                    <input 
-                        type="password"
-                        name="password" 
-                        placeholder="Password" 
-                        value={this.state.password} 
-                        onChange={this.handleChange} 
-                        required
-                    />
-                    
-                    <button type="submit" id="loginButton">Button</button>
-                </form>
+                    <Form.Group controlID="formGroupPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control 
+                            type="password" 
+                            placeholder="Password" 
+                            value={this.state.password} 
+                            onChange={this.handleChange} 
+                            required
+                        />
+                    </Form.Group>
+                </Form>
+                    <button onClick={() => this.handleClick()} variant="btn btn-success" type="submit" id="loginButton">Button</button> 
+
             </div>
         )
     }
