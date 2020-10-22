@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { useHistory } from 'react-router';
 
 // Create a basic authentication with axios
 class LoginSystem extends Component {
@@ -41,10 +40,6 @@ class LoginSystem extends Component {
             event.preventDefault();
     }
 
-    handleClick() {
-        console.log("Tester")
-    }
-
     render() {
         const loginBox = {
             border : "3px solid #ddd",
@@ -54,30 +49,30 @@ class LoginSystem extends Component {
 
         return(
             <div style={loginBox}>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formGroupUsername">
                         <Form.Label>Username</Form.Label>
                         <Form.Control 
+                            name="username"
                             type="username" 
                             placeholder="Enter Username" 
                             value={this.state.username} 
                             onChange={this.handleChange} 
-                            required
                         />
                     </Form.Group>
 
-                    <Form.Group controlID="formGroupPassword">
+                    <Form.Group controlId="formGroupPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control 
+                            name="password"
                             type="password" 
                             placeholder="Password" 
                             value={this.state.password} 
                             onChange={this.handleChange} 
-                            required
                         />
                     </Form.Group>
                 </Form>
-                    <button onClick={() => this.handleClick()} variant="btn btn-success" type="submit" id="loginButton">Button</button> 
+                    <Button variant="info" type="submit" id="loginButton" block>Submit</Button> 
 
             </div>
         )

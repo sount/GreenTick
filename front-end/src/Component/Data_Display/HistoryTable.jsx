@@ -27,7 +27,7 @@ const HistoryTable = (props) => {
     useEffect(() => {
         console.log(props.historyData)
         setHistoryRows()
-      },[]);
+      },[props.historyData]);
 
     return (
         <div>
