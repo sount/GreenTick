@@ -1,0 +1,27 @@
+format
+
+input:
+login {
+	"username" : char
+	"password" : char
+	}
+
+return token or false
+	
+historicaldata_in{
+	"start" : date
+	"end" : date
+	"token": char
+	}
+
+return json
+
+historicaldata_out{
+	"id": int
+	"time": date
+	"counterparty_id": int
+	"instrument_id": int
+	"type": char
+	"amount": float
+	"quantity": int
+	}
