@@ -15,9 +15,9 @@ class Body extends Component {
     }
 
     componentDidMount () {
-        axios.get('http://dummy.restapiexample.com/api/v1/employees')
+        axios.post('http://localhost:8000/historicaldata', {"token":"greentickteamforthewin","limit":10})
             .then(res => {
-                const historyData = res.data.data
+                const historyData = res.data
                 console.log(historyData)
                 this.setState({historyData : historyData})
             })

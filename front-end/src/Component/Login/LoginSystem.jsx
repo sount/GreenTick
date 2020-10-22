@@ -24,16 +24,10 @@ class LoginSystem extends Component {
     handleSubmit(event) {
         const { username, password } = this.state;
 
+        let b = {"username":username, "password":password}
+
         axios
-            .post("http://localhost:3000/login", {
-                user : {
-                    username : username,
-                    password : password
-                }
-            },
-        
-            { withCredentials : true}
-            )
+            .post("http://localhost:8000/login", b)
             .then(response => {
                 console.log("res from login", response);
             }
