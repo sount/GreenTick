@@ -53,6 +53,7 @@ class LoginSystem extends Component {
                     <Form.Group controlId="formGroupUsername">
                         <Form.Label>Username</Form.Label>
                         <Form.Control 
+                            name="username"
                             type="username" 
                             placeholder="Enter Username" 
                             value={this.state.username} 
@@ -60,9 +61,10 @@ class LoginSystem extends Component {
                         />
                     </Form.Group>
 
-                    <Form.Group controlID="formGroupPassword">
+                    <Form.Group controlId="formGroupPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control 
+                            name="password"
                             type="password" 
                             placeholder="Password" 
                             value={this.state.password} 
