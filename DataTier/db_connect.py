@@ -42,7 +42,7 @@ def _streamSSE(url, cnx):
 
         cnx.commit()
 
-        # increment primary keys
+        # increment primary key
         deal_id += 1
 
         print(mycursor.rowcount, "record inserted.")
