@@ -33,10 +33,9 @@ class Body extends Component {
         }
 
         return(
-            <Container style={containerTemplate}>
-                <HistoryTable historyData={this.state.historyData} />                
+            <Container style={containerTemplate}>              
                 <LoginSystem/>
-
+                <HistoryTable historyData={this.state.historyData} />  
             </Container>
         )
     }

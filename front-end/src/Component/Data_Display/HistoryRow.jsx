@@ -9,9 +9,9 @@ class HistoryRow extends Component {
     render() {
         return(
             <tr>
-                <td>{this.props.userId}</td>
-                <td>{this.props.title}</td>
-                <td>{this.props.completed}</td>
+                <td>{this.props.history.deal_id}</td>
+                <td>{this.props.history.deal_amount}</td>
+                <td>{this.props.history.deal_quantity}</td>
             </tr>
         )
     }

@@ -15,18 +15,20 @@ const HistoryTable = (props) => {
         width : "50%"
     }
     
-    let historyRows = []
-
-    const setHistoryRows = () => {
-        props.historyData.forEach(h => {
-            console.log(h)
-            historyRows.push(<HistoryRow history={h} key={h.id}/>)
+    const renderTableData = () => {
+        return props.historyData.map( (row, index) => {
+            return (
+                <tr key={index}>
+                    <td>{row.deal_id}</td>
+                    <td>{row.deal_amount}</td>
+                    <td>{row.deal_quantity}</td>
+                </tr>
+            )
         })
     }
 
     useEffect(() => {
         console.log(props.historyData)
-        setHistoryRows()
       },[props.historyData]);
 
     return (
@@ -40,7 +42,7 @@ const HistoryTable = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {historyRows}
+                    {renderTableData()}
                 </tbody>               
             </table>
         </div>
