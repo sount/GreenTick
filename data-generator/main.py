@@ -6,13 +6,9 @@ from RandomDealData import *
 from utilities_restapi import check_credentials,get_statistical_data,get_historical_data
 
 
-
-import pandas as pd
-
 SECRET_KEY = "greentickteamforthewin"
 app = Flask(__name__)
 CORS(app)
-
 
 @app.route('/')
 def index():
@@ -30,11 +26,14 @@ def stream():
 def sse_stream():
      return webServiceStream.sse_stream()
 
+
+
+
 @app.route('/login',methods=['GET', 'POST'])
 def login():
 
     credentials = request.json
-    response_dict = check_credentials(credentials)
+    response_dict = check_credentials(credentials,SECRET_KEY)
 
     return jsonify(response_dict)
 
@@ -53,6 +52,8 @@ def statistics():
         response_dict = {}
         return jsonify(response_dict)
 
+
+
 @app.route('/historicaldata',methods=['GET', 'POST'])
 def historicaldata():
     historical_request = request.json
@@ -64,6 +65,10 @@ def historicaldata():
         print("Access Denied")
         response_dict = {}
         return jsonify(response_dict)
+
+
+
+
 def bootapp():
     #global rdd 
     #rdd = RandomDealData()

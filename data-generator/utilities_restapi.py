@@ -36,5 +36,5 @@ def get_historical_data(historical_request):
     query = f'SELECT * FROM deal LIMIT {historical_request["limit"]}'
 
     historical_data_dataframe = pd.read_sql(query, cnx)
-    response_dict = historical_data_dataframe.to_json()
+    response_dict = historical_data_dataframe.to_json(orient="index")
     return response_dict
