@@ -1,4 +1,5 @@
 import mysql.connector
+from mysql.connector import errorcode
 from sseclient import SSEClient
 import json
 from datetime import datetime
@@ -25,10 +26,10 @@ def _streamSSE(url, cnx):
             output_json = json.loads(output_msg)
 
         # insert ccounterparty details into ctpy table
-        ctpy_name_to_id = insert_counterparty(cnx, output_json, ctpy_id, ctpy_dict)
+        ctpy_name_to_id, ctpy_id = insert_counterparty(cnx, output_json, ctpy_id, ctpy_dict)
 
         # insert instrument details into instrument table
-        instrument_name_to_id = insert_instrument(cnx, output_json, instrument_id, instrument_dict)
+        instrument_name_to_id, instrument_id = insert_instrument(cnx, output_json, instrument_id, instrument_dict)
 
         # insert deal data into deal table
         mycursor = cnx.cursor()
@@ -43,8 +44,6 @@ def _streamSSE(url, cnx):
 
         # increment primary keys
         deal_id += 1
-        ctpy_id += 1
-        instrument_id += 1
 
         print(mycursor.rowcount, "record inserted.")
 
@@ -55,7 +54,10 @@ def convert_to_datetime(time):
     sql datetime format (YYY:MM:DD hh:mm:ss)
     :return: 
     '''
-    datetime_obj = datetime.strptime(time, '%d-%b-%Y (%H:%M:%S.%f)')
+    try:
+        datetime_obj = datetime.strptime(time, '%d-%b-%Y (%H:%M:%S.%f)')
+    except:
+        print("Invalid time data")
 
     return datetime_obj
 
@@ -69,8 +71,9 @@ def insert_instrument(cnx, output_data, instrument_id, instrument_dict):
         instrument_dict[output_data['instrumentName']] = instrument_id
         mycursor.execute(sql, val)
         cnx.commit()
+        instrument_id += 1
 
-    return instrument_dict
+    return instrument_dict, instrument_id
 
 
 def insert_counterparty(cnx, output_data, ctpy_id, ctpy_dict):
@@ -85,11 +88,16 @@ def insert_counterparty(cnx, output_data, ctpy_id, ctpy_dict):
         mycursor.execute(sql, val)
         cnx.commit()
 
-    return ctpy_dict
+        ctpy_id += 1
+
+    return ctpy_dict, ctpy_id
 
 
 def connect_to_db():
-
+    '''
+    function to connect to the db
+    :return: returns true, cnx if successful, false if not
+    '''
     try:
         cnx = mysql.connector.connect(user='root', password='ppp',
                                       host='127.0.0.1',
@@ -100,7 +108,7 @@ def connect_to_db():
             cursor.close()
             return True, cnx
 
-        except MySQLdb._exceptions.IntegrityError:
+        except mysql.connector.IntegrityError:
             cursor.close()
             return False
 
@@ -114,14 +122,18 @@ def connect_to_db():
         return False
     else:
         return False
-    finally:
-        if cnx.is_connected():
-            cursor.close()
-            print("Connection closed")
+
+
+def disconnect_db(cnx):
+    cursor = cnx.cursor
+    if cnx.is_connected():
+        cursor.close()
+        print("Connection closed")
+
 
 if __name__ == '__main__':
     connection, cnx = connect_to_db()
-    if connection == True:
+    if connection:
         _streamSSE('http://127.0.0.1:5000/streamTest/sse', cnx)
 
-    cnx.close()
+    disconnect_db(cnx)
