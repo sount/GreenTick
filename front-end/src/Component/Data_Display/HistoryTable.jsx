@@ -7,6 +7,13 @@ const HistoryTable = (props) => {
     // 1. connecting 
     // 2. get data from database
     // 3. show result from db
+
+    const historyTable = {
+        textAlign: "center",
+        borderCollapse : "collapse",
+        border : "3px solid #ddd",
+        width : "50%"
+    }
     
     let historyRows = []
 
@@ -23,7 +30,7 @@ const HistoryTable = (props) => {
 
     return (
         <div>
-            <table>
+            <table style={historyTable}>
                 <thead>
                     <tr>
                         <th>Time</th>

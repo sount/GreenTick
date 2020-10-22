@@ -44,10 +44,15 @@ class LoginSystem extends Component {
 
             event.preventDefault();
     }
+    
 
     render() {
+        const loginBox = {
+            border : "3px solid #ddd"
+        }
+
         return(
-            <div>
+            <div style={loginBox}>
                 <form id="login" onSubmit={this.handleSubmit}>
                     <input 
                         type="username" 
