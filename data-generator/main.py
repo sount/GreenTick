@@ -27,8 +27,6 @@ def sse_stream():
      return webServiceStream.sse_stream()
 
 
-
-
 @app.route('/login',methods=['GET', 'POST'])
 def login():
 
