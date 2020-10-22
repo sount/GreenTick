@@ -1,29 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 // Create a basic authentication with axios
-class LoginSystem extends Component {
-    constructor(props) {
-        super(props);
+const LoginSystem = () => {
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
 
-        this.state = {
-            username : "",
-            password : ""
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+    const handleChange = (event) => {
+        if (event.target.name == "username")
+            setUsername(event.target.value)
+        else
+            setPassword(event.target.value)
     }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name] : event.target.value
-        })
-    }
-
-    handleSubmit(event) {
-        const { username, password } = this.state;
+    const handleSubmit = (event) => {
 
         let b = {"username":username, "password":password}
 
@@ -31,6 +23,7 @@ class LoginSystem extends Component {
             .post("http://localhost:8080/login", b)
             .then(response => {
                 console.log("res from login", response);
+                history.push("/body")
             }
             )
             .catch(err => {
@@ -40,24 +33,26 @@ class LoginSystem extends Component {
             event.preventDefault();
     }
 
-    render() {
-        const loginBox = {
-            border : "3px solid #ddd",
-            backgroundColor : "#90EE90",
-            padding : "50px"
-        }
+
+    let history = useHistory()
+
+    const loginBox = {
+        border : "3px solid #ddd",
+        backgroundColor : "#90EE90",
+        padding : "50px"
+    }
 
         return(
             <div style={loginBox}>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formGroupUsername">
                         <Form.Label>Username</Form.Label>
                         <Form.Control 
                             name="username"
                             type="username" 
                             placeholder="Enter Username" 
-                            value={this.state.username} 
-                            onChange={this.handleChange} 
+                            value={username} 
+                            onChange={handleChange} 
                         />
                     </Form.Group>
 
@@ -67,8 +62,8 @@ class LoginSystem extends Component {
                             name="password"
                             type="password" 
                             placeholder="Password" 
-                            value={this.state.password} 
-                            onChange={this.handleChange} 
+                            value={password} 
+                            onChange={handleChange} 
                         />
                     </Form.Group>
                     <Button variant="info" type="submit" id="loginButton" block>Submit</Button> 
@@ -76,7 +71,7 @@ class LoginSystem extends Component {
 
             </div>
         )
-    }
+    
 }
 
 export default LoginSystem;
