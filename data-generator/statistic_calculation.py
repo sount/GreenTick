@@ -10,7 +10,6 @@ query = 'SELECT * FROM deal'
 data_dataframe = pd.read_sql(query, cnx)
 instrument_id = data_dataframe["deal_instrument_id"].unique().sort()
 print(instrument_id)
-for id in instrument_id:
 
 grouped_data= data_dataframe.groupby(['deal_instrument_id', 'deal_type'])[["deal_quantity","deal_amount"]]
 print(grouped_data.describe())
