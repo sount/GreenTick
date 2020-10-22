@@ -3,6 +3,8 @@ import HeaderNavigation from './Component/HeaderNavigation';
 import AppFooter from './Component/Footer';
 import Body from './Component/Body';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Link, Route, Router } from 'react-router-dom';
+import Switch from 'react-bootstrap/esm/Switch';
 
 function App() {
   document.body.style = "background: #22687B;"
@@ -10,11 +12,11 @@ function App() {
   return (
     <>
       <HeaderNavigation/>
-        <Body/>
-        
+      <Body/>
       <AppFooter/>
     </>
   );
 }
+
 
 export default App;
