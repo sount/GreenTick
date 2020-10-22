@@ -89,14 +89,39 @@ def insert_counterparty(cnx, output_data, ctpy_id, ctpy_dict):
 
 
 def connect_to_db():
-    cnx = mysql.connector.connect(user='root', password='ppp',
-                                  host='127.0.0.1',
-                                  database='db_grad_cs_1917')
 
-    return cnx
+    try:
+        cnx = mysql.connector.connect(user='root', password='ppp',
+                                      host='127.0.0.1',
+                                      database='db_grad_cs_1917', auth_plugin='mysql_native_password')
+        cursor = cnx.cursor(dictionary=True)
+        try:
+            cnx.commit()
+            cursor.close()
+            return True, cnx
 
+        except MySQLdb._exceptions.IntegrityError:
+            cursor.close()
+            return False
+
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("User authorization error")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database doesn't exist")
+        else:
+            print(err)
+        return False
+    else:
+        return False
+    finally:
+        if cnx.is_connected():
+            cursor.close()
+            print("Connection closed")
 
 if __name__ == '__main__':
-    cnx = connect_to_db()
-    _streamSSE('http://127.0.0.1:5000/streamTest/sse', cnx)
+    connection, cnx = connect_to_db()
+    if connection == True:
+        _streamSSE('http://127.0.0.1:5000/streamTest/sse', cnx)
+
     cnx.close()
