@@ -13,7 +13,7 @@ function App() {
     <Router>
       <HeaderNavigation/>
         <Switch>
-          <Route path="/login">
+          <Route path="/" exact>
             <LoginSystem/>
           </Route>
           <Route path="/body">
