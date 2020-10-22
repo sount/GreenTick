@@ -9,25 +9,17 @@ def _streamSSE(url, cnx):
     :param cnx:
     :return:
     '''
-    # primary keys
-    ctpy_id = 701
-    instrument_id = 1001
+    # primary key
     deal_id = 20001
-    # empty dict to store primary key of each unique ctpy/instrument name
-    ctpy_dict = {}
-    instrument_dict = {}
+    # dict to store primary key of each unique ctpy/instrument name
+    ctpy_name_to_id = insert_counterparty(cnx)
+    instrument_name_to_id = insert_instrument(cnx)
 
     messages = SSEClient(url)
     for msg in messages:
         output_msg = msg.data
         if type(output_msg) is str:
             output_json = json.loads(output_msg)
-
-        # insert ccounterparty details into ctpy table
-        ctpy_name_to_id, ctpy_id = insert_counterparty(cnx, output_json, ctpy_id, ctpy_dict)
-
-        # insert instrument details into instrument table
-        instrument_name_to_id, instrument_id = insert_instrument(cnx, output_json, instrument_id, instrument_dict)
 
         # insert deal data into deal table
         mycursor = cnx.cursor()
@@ -60,32 +52,38 @@ def convert_to_datetime(time):
     return datetime_obj
 
 
-def insert_instrument(cnx, output_data, instrument_id, instrument_dict):
+def insert_instrument(cnx):
     mycursor = cnx.cursor()
-    if output_data['instrumentName'] not in list(instrument_dict.keys()):
+    instrument_id = 1001
+    instrument_dict = {}
+    instruments = ("Astronomica", "Borealis", "Celestial", "Deuteronic", "Eclipse",
+                   "Floral", "Galactia", "Heliosphere", "Interstella", "Jupiter", "Koronis", "Lunatic")
+    for instrument in instruments:
         sql = "INSERT IGNORE INTO instrument (instrument_id, instrument_name) VALUES (%s, %s)"
-        val = (instrument_id, output_data['instrumentName'])
-
-        instrument_dict[output_data['instrumentName']] = instrument_id
+        val = (instrument_id, instrument)
+        instrument_dict[instrument] = instrument_id
         mycursor.execute(sql, val)
         cnx.commit()
         instrument_id += 1
 
-    return instrument_dict, instrument_id
+    print("instruments added to database")
+    return instrument_dict
 
 
-def insert_counterparty(cnx, output_data, ctpy_id, ctpy_dict):
+def insert_counterparty(cnx):
     mycursor = cnx.cursor()
-    if output_data['cpty'] not in list(ctpy_dict.keys()):
+    ctpy_id = 7001
+    ctpy_dict = {}
+    counterparties = ("Lewis", "Selvyn", "Richard", "Lina", "John", "Nidia")
+    for ctpy in counterparties:
         sql = "INSERT IGNORE INTO counterparty (counterparty_id, counterparty_name, counterparty_status, counterparty_date_registered) VALUES (%s, %s, %s, %s)"
-        time = convert_to_datetime(output_data['time'])
+        time = datetime.now().strftime("%Y:%m:%d %H:%M:%S")
         ctpy_status = "A"
-        val = (ctpy_id, output_data['cpty'], ctpy_status, time)
-
-        ctpy_dict[output_data['cpty']] = ctpy_id
+        val = (ctpy_id, ctpy, ctpy_status, time)
+        ctpy_dict[ctpy] = ctpy_id
         mycursor.execute(sql, val)
         cnx.commit()
-
         ctpy_id += 1
 
-    return ctpy_dict, ctpy_id
+    print("counterparties added to database")
+    return ctpy_dict
