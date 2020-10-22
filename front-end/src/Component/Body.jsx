@@ -18,7 +18,8 @@ class Body extends Component {
         axios.get('http://dummy.restapiexample.com/api/v1/employees')
             .then(res => {
                 const historyData = res.data.data
-                this.setState(historyData)
+                console.log(historyData)
+                this.setState({historyData : historyData})
             })
             .catch(err => console.log(`Error in Body: ${err}`))
     }

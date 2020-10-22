@@ -19,6 +19,7 @@ const HistoryTable = (props) => {
 
     const setHistoryRows = () => {
         props.historyData.forEach(h => {
+            console.log(h)
             historyRows.push(<HistoryRow history={h} key={h.id}/>)
         })
     }
