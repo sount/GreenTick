@@ -12,7 +12,7 @@ const HistoryTable = (props) => {
         textAlign: "center",
         borderCollapse : "collapse",
         border : "3px solid #ddd",
-        width : "50%"
+        width : "80%"
     }
     
     const renderTableData = () => {
