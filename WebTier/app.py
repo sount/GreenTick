@@ -39,17 +39,18 @@ def statistics():
     statistics_request = request.json
     if statistics_request["token"] == SECRET_KEY:
         print("Access Granted!")
-        response_dict = {}
-
+        # connect do mysql database
         cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
                                       database='db_grad_cs_1917')
 
-        #query= 'SELECT * FROM deal WHERE deal_time > %s AND deal_time < %s',
-        #              (statistics_request["start"], statistics_request["password"])
-        test_query = 'SELECT * FROM users'
+        query = 'SELECT * FROM deal'
+        # save everythiong for the calculations in a dataframe
+        statistic_data_dataframe = pd.read_sql(query, cnx)
 
-        statistic_data_dataframe = pd.read_sql(test_query, cnx)
+
+        #make dataframe to json
         response_dict = statistic_data_dataframe.to_json()
+
         return jsonify(response_dict)
     else:
         print("Access Denied")
@@ -64,8 +65,6 @@ def historicaldata():
         cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
                                       database='db_grad_cs_1917')
         query = f'SELECT * FROM deal LIMIT {historical_request["limit"]}'
-
-        #test_query='SELECT * FROM users'
 
         historical_data_dataframe = pd.read_sql(query, cnx)
         response_dict = historical_data_dataframe.to_json()
