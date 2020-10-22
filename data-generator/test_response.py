@@ -7,16 +7,12 @@ if res.ok:
     data = res.json()
     print(data)
 
-
-
 #test historical data
 res = requests.post('http://localhost:8080/historicaldata', json={"token":"greentickteamforthewin","limit":10})
 
 if res.ok:
     data2 = res.json()
     print(data2)
-
-
 
 # test statistic
 res = requests.post('http://localhost:8080/statistics', json={"token":"greentickteamforthewin"})
