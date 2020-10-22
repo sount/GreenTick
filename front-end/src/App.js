@@ -1,17 +1,17 @@
 import React from 'react';
-import ConnectionReport from './Component/Login/ConnectionReport';
 import HeaderNavigation from './Component/HeaderNavigation';
-import 'bootstrap/dist/css/bootstrap.min.css'
 import AppFooter from './Component/Footer';
 import Body from './Component/Body';
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
+  document.body.style = "background: #22687B;"
+
   return (
     <>
       <HeaderNavigation/>
-      <ConnectionReport/>
-      <Body/>
+        <Body/>
+        
       <AppFooter/>
     </>
   );

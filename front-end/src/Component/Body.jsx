@@ -22,15 +22,24 @@ class Body extends Component {
                 this.setState({historyData : historyData})
             })
             .catch(err => console.log(`Error in Body: ${err}`))
+        
     }
 
     render() {
+        const containerTemplate = {
+            position: 'absolute', 
+            left: '50%', 
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+            width : "30%",
+            padding : "10px",
+            padding : "10px"
+        }
+
         return(
-            <Container>
-                <Row>
-                    <Col md={4}><History historyData={this.state.historyData}/></Col>
-                    <Col md={{ span : 4, offset : 4}}><LoginSystem/></Col>
-                </Row>
+            <Container style={containerTemplate}>
+                    {/*<Col md={4}><History historyData={this.state.historyData}/></Col>*/}
+                <LoginSystem/>
             </Container>
         )
     }
