@@ -20,7 +20,7 @@ class AppFooter extends Component {
                 <Navbar style={footerStyle}>
                     <Container>
                         <NavbarBrand>&copy; Green Tick 2020 
-                            <a style={textSize}> ft. James, Ka Chun, Kevin, Talant, Sabina, Tung</a>
+                            <a href="/#" style={textSize}> ft. James, Ka Chun, Kevin, Talant, Sabina, Tung</a>
                         </NavbarBrand>
                     </Container>
                 </Navbar>

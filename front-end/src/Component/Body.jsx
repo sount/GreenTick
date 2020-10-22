@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import History from './Data_Display/HistoryTable';
 import LoginSystem from './Login/LoginSystem';
 import axios from 'axios'
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 class Body extends Component {
-
     state = {
         historyData : []
     }
 
-    constructor (props) {
-        super(props)
-    }
 
     componentDidMount () {
         axios.post('http://localhost:8000/historicaldata', {"token":"greentickteamforthewin","limit":10})
@@ -32,13 +27,11 @@ class Body extends Component {
             top: '50%',
             transform: 'translate(-50%, -50%)',
             width : "30%",
-            padding : "10px",
             padding : "10px"
         }
 
         return(
             <Container style={containerTemplate}>
-                    {/*<Col md={4}><History historyData={this.state.historyData}/></Col>*/}
                 <LoginSystem/>
             </Container>
         )
