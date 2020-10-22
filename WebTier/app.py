@@ -63,12 +63,11 @@ def historicaldata():
         print("Access Granted!")
         cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
                                       database='db_grad_cs_1917')
-        #query = 'SELECT * FROM deal WHERE deal_time > %s AND deal_time < %s',\
-        #        (historical_request["start"], historical_request["end"])
+        query = f'SELECT * FROM deal LIMIT {historical_request["limit"]}'
 
-        test_query='SELECT * FROM users'
+        #test_query='SELECT * FROM users'
 
-        historical_data_dataframe = pd.read_sql(test_query, cnx)
+        historical_data_dataframe = pd.read_sql(query, cnx)
         response_dict = historical_data_dataframe.to_json()
         return jsonify(response_dict)
     else:
