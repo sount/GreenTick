@@ -20,7 +20,7 @@ const LoginSystem = () => {
 
         let b = {"username":username, "password":password}
         axios
-            .post("http://localhost:8080/login", b)
+            .post("http://localhost:8090/login", b)
             .then(response => {
                 console.log("res from login", response);
                 if (JSON.stringify(response.data) === "{}") {
@@ -62,7 +62,7 @@ const LoginSystem = () => {
         }, 10000)
 
         axios
-            .post("http://localhost:8080/login", b)
+            .post("http://localhost:8090/login", b)
             .then(response => {
                 console.log("Check connection", response);
 
@@ -78,7 +78,7 @@ const LoginSystem = () => {
                 alert("Connection was not successfull.")
             })
         return () => clearTimeout(timer)
-    }, [color])
+    }, [])
     
     return(
         <Container style={loginBox}>

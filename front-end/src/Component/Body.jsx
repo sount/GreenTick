@@ -2,23 +2,34 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import { Container } from 'react-bootstrap';
 import HistoryTable from './Data_Display/HistoryTable'
+import Statistics from './Data_Display/Statistics';
 
 class Body extends Component {
     state = {
-        historyData : []
+        historyData : [],
+        stats : []
     }
 
 
     async componentDidMount () {
         const request = {"token":"greentickteamforthewin","limit":10}
-        const response = await axios.post('http://localhost:8080/historicaldata', request)
+        const response = await axios.post('http://localhost:8090/historicaldata', request)
 
-        const jsonRsponse = JSON.parse(response.data)
+        const jsonRsponse = response.data
         let tempArr = []
         for (let i in jsonRsponse)
             tempArr.push(jsonRsponse[i])
 
         this.setState({historyData : tempArr})
+
+        const response2 = await axios.post('http://localhost:8090/statistics', request)
+
+        const jsonRsponse2 = response2.data
+        let tempArr2 = []
+        for (let i in jsonRsponse2)
+            tempArr2.push(jsonRsponse2[i])
+
+        this.setState({stats : tempArr2})
     }
 
     render() {
@@ -33,7 +44,7 @@ class Body extends Component {
 
         const dataVisualization = {
             position : "absolute",
-            left : "90%",
+            left : "75%",
             top : "50%",
             transform : "translate(-50%, -50%)",
             width : "50%",
@@ -48,7 +59,7 @@ class Body extends Component {
                     </div>
 
                     <div style={dataVisualization} className="col">
-                        <h2>Data Visualization</h2>
+                        <Statistics stats={this.state.stats}/>
                     </div>
                 </div>
                 
