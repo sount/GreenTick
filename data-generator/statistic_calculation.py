@@ -20,20 +20,28 @@ instrument_name_to_id = {"Astronomica" : 1001,
                          "Lunatic" : 1012}
 instrument_id_to_name = {b : a for a, b in instrument_name_to_id.items()}
 
-ctpy_name_to_id = {"Lewis" : 701,
-                   "Selvyn" : 702,
-                   "Richard" : 703,
-                   "Lina" : 704,
-                   "John" : 705,
-                   "Nidia" : 706}
-ctpy_id_to_name = {b : a for a, b in ctpy_name_to_id.items()}
+
 
 query = 'SELECT * FROM deal'
 # save everything for the calculations in a dataframe
 data = pd.read_sql(query, cnx)
 
 
-def find_dealer_PL(data_dataframe):
+def find_dealer_PL():
+    cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
+                                  database='db_grad_cs_1917')
+
+    query = 'SELECT * FROM deal'
+    # save everything for the calculations in a dataframe
+    data_dataframe = pd.read_sql(query, cnx)
+
+    ctpy_name_to_id = {"Lewis": 701,
+                       "Selvyn": 702,
+                       "Richard": 703,
+                       "Lina": 704,
+                       "John": 705,
+                       "Nidia": 706}
+    ctpy_id_to_name = {b: a for a, b in ctpy_name_to_id.items()}
 
     ctpy_PL = {}
     for index, row in data_dataframe.iterrows():
