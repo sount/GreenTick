@@ -9,37 +9,48 @@ const HistoryTable = (props) => {
 
     const historyTable = {
         textAlign: "center",
+        fontFamily : "Trebuchet MS",
         borderCollapse : "collapse",
         border : "3px solid #ddd",
-<<<<<<< HEAD
-        width : "50%", 
-        backgroundColor : "white"
-=======
-        width : "100%", 
-        backgroundColor : "white"
+        backgroundColor : "white",
+        maxWidth : "100%",
+        overflow : "scroll",
     }
 
     const headerTable = {
         backgroundColor : "lightgray",
->>>>>>> c7cedf1ab8486e42702b4af90663eb04a1bc179b
+        border : "1px solid black"
     }
-    
-    const boxStyle = {
-        padding : "10px",
-        margin : "10px"
+
+    const title = {
+        textAlign : "center",
+        fontFamily : "arial, sans-serif"
+    } 
+
+    const styleRow = {
+        border : "1px solid black",
+    }
+
+    const styleCol = {
+        paddingTop : "12px",
+        paddingBottom : "12px",
+        backgroundColor : "#90EE90",
+        width : "10%",
+        border : "1px solid black",
+        margin : "auto"
     }
 
     const renderTableData = () => {
         return props.historyData.map( (row, index) => {
             return (
                 <tr style={headerTable} key={index}>
-                    <td>{row.deal_id}</td>
-                    <td>{row.deal_time}</td>
-                    <td>{row.deal_amount}</td>
-                    <td>{row.deal_quantity}</td>
-                    <td>{row.deal_type}</td>
-                    <td>{row.deal_instrument_id}</td>
-                    <td>{row.deal_counterparty_id}</td>
+                    <td style={styleRow}>{row.deal_id}</td>
+                    <td style={styleRow}>{row.deal_time}</td>
+                    <td style={styleRow}>{row.deal_amount}</td>
+                    <td style={styleRow}>{row.deal_quantity}</td>
+                    <td style={styleRow}>{row.deal_type}</td>
+                    <td style={styleRow}>{row.deal_instrument_id}</td>
+                    <td style={styleRow}>{row.deal_counterparty_id}</td>
                 </tr>
             )
         })
@@ -50,24 +61,25 @@ const HistoryTable = (props) => {
       },[props.historyData]);
 
     return (
-        <div style={boxStyle}>
+        <>
+            <h1 style={title}>Historic Data</h1>
             <table style={historyTable}>
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Time</th>
-                        <th>Amount</th>
-                        <th>Quantity</th>
-                        <th>Type</th>
-                        <th>Instrument ID</th>
-                        <th>Counterparty ID</th>
+                    <tr style={styleRow}>
+                        <th style={styleCol}>ID</th>
+                        <th style={styleCol}>Time</th>
+                        <th style={styleCol}>Amount</th>
+                        <th style={styleCol}>Quantity</th>
+                        <th style={styleCol}>Type</th>
+                        <th style={styleCol}>Instrument ID</th>
+                        <th style={styleCol}>Counterparty ID</th>
                     </tr>
                 </thead>
                 <tbody>
                     {renderTableData()}
                 </tbody>               
             </table>
-        </div>
+        </>
     )
 }
 

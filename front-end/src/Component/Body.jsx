@@ -22,18 +22,37 @@ class Body extends Component {
     }
 
     render() {
-        const containerTemplate = {
+        const dealStyleTable = {
             position: 'absolute', 
-            left: '50%', 
+            left: '25%', 
             top: '50%',
             transform: 'translate(-50%, -50%)',
-            width : "30%",
+            width : "50%",
+            padding : "10px"
+        }
+
+        const dataVisualization = {
+            position : "absolute",
+            left : "90%",
+            top : "50%",
+            transform : "translate(-50%, -50%)",
+            width : "50%",
             padding : "10px"
         }
 
         return(
-            <Container style={containerTemplate}>              
-                <HistoryTable historyData={this.state.historyData} />  
+            <Container>              
+                <div className="row">
+                    <div style={dealStyleTable} className="col">
+                    <HistoryTable historyData={this.state.historyData} />  
+                    </div>
+
+                    <div style={dataVisualization} className="col">
+                        <h2>Data Visualization</h2>
+                    </div>
+                </div>
+                
+                
             </Container>
         )
     }
