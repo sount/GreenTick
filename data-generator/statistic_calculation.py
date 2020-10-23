@@ -25,10 +25,6 @@ def connect_to_db():
 
     return cnx
 
-query = 'SELECT * FROM deal'
-# save everything for the calculations in a dataframe
-data = pd.read_sql(query, cnx)
-
 
 def find_dealer_PL():
     cnx = connect_to_db()
