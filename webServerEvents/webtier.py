@@ -28,7 +28,6 @@ def index():
     return "webtier service points are running..."
 
 
-<<<<<<< HEAD
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     credentials = request.json
@@ -53,8 +52,6 @@ def statistics():
     res = requests.post('http://localhost:8080/statistics', json=statistics)
 
     return res.json()
-=======
->>>>>>> b47fa48b1ce06162e05a9f3bf2d30ad2a35fb9e2
 
 def get_message():
     """this could be any function that blocks until data is ready"""
