@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response,request,jsonify
 from flask_sse import sse
 from flask_cors import CORS
 import requests
@@ -27,6 +27,34 @@ def client_to_server():
 def index():
     return "webtier service points are running..."
 
+
+<<<<<<< HEAD
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    credentials = request.json
+
+    res = requests.post('http://localhost:8080/login', json=credentials)
+
+    return res.json()
+
+@app.route('/historicaldata', methods=['GET', 'POST'])
+def historicaldata():
+    historical = request.json
+
+    res = requests.post('http://localhost:8080/historicaldata', json=historical)
+
+    return res.json()
+
+
+@app.route('/statistics', methods=['GET', 'POST'])
+def statistics():
+    statistics = request.json
+
+    res = requests.post('http://localhost:8080/statistics', json=statistics)
+
+    return res.json()
+=======
+>>>>>>> b47fa48b1ce06162e05a9f3bf2d30ad2a35fb9e2
 
 def get_message():
     """this could be any function that blocks until data is ready"""
