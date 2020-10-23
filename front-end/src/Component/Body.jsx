@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import LoginSystem from './Login/LoginSystem';
 import axios from 'axios'
 import { Container } from 'react-bootstrap';
 import HistoryTable from './Data_Display/HistoryTable'
@@ -34,7 +33,6 @@ class Body extends Component {
 
         return(
             <Container style={containerTemplate}>              
-                <LoginSystem/>
                 <HistoryTable historyData={this.state.historyData} />  
             </Container>
         )

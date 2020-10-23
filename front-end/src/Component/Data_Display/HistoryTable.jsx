@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import HistoryRow from './HistoryRow';
-import axios from 'axios';
+
 
 const HistoryTable = (props) => {
     // Its important to create a connection between React and the Database
@@ -12,17 +11,35 @@ const HistoryTable = (props) => {
         textAlign: "center",
         borderCollapse : "collapse",
         border : "3px solid #ddd",
+<<<<<<< HEAD
         width : "50%", 
         backgroundColor : "white"
+=======
+        width : "100%", 
+        backgroundColor : "white"
+    }
+
+    const headerTable = {
+        backgroundColor : "lightgray",
+>>>>>>> c7cedf1ab8486e42702b4af90663eb04a1bc179b
     }
     
+    const boxStyle = {
+        padding : "10px",
+        margin : "10px"
+    }
+
     const renderTableData = () => {
         return props.historyData.map( (row, index) => {
             return (
-                <tr key={index}>
+                <tr style={headerTable} key={index}>
                     <td>{row.deal_id}</td>
+                    <td>{row.deal_time}</td>
                     <td>{row.deal_amount}</td>
                     <td>{row.deal_quantity}</td>
+                    <td>{row.deal_type}</td>
+                    <td>{row.deal_instrument_id}</td>
+                    <td>{row.deal_counterparty_id}</td>
                 </tr>
             )
         })
@@ -33,13 +50,17 @@ const HistoryTable = (props) => {
       },[props.historyData]);
 
     return (
-        <div>
+        <div style={boxStyle}>
             <table style={historyTable}>
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Time</th>
                         <th>Amount</th>
                         <th>Quantity</th>
+                        <th>Type</th>
+                        <th>Instrument ID</th>
+                        <th>Counterparty ID</th>
                     </tr>
                 </thead>
                 <tbody>
