@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
+import logo from './../img/check.png'
 
 
 class HeaderNavigation extends Component {
@@ -10,9 +11,17 @@ class HeaderNavigation extends Component {
 
         return(
             <Navbar style={navTemplate}>
-            <Navbar.Brand href="#home">Green Tick</Navbar.Brand>
-            <Nav className="mr-auto">
-            </Nav>
+              <Navbar.Brand href="#home">
+                <img 
+                  src={logo}
+                  width= "30"
+                  height= "30"
+                  classname= "d-inline-block align-top"
+                  alt="Green Tick logo"
+                />
+                {''}
+                Green Tick
+                </Navbar.Brand>
           </Navbar>
         )
     }

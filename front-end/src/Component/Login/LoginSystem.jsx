@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Container } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import TrafficLight from 'react-trafficlight';
 
 // Create a basic authentication with axios
 const LoginSystem = () => {
@@ -9,7 +10,7 @@ const LoginSystem = () => {
     const [password, setPassword] = useState("")
 
     const handleChange = (event) => {
-        if (event.target.name == "username")
+        if (event.target.name === "username")
             setUsername(event.target.value)
         else
             setPassword(event.target.value)
@@ -23,8 +24,9 @@ const LoginSystem = () => {
             .post("http://localhost:8080/login", b)
             .then(response => {
                 console.log("res from login", response);
-                if (JSON.stringify(response.data) == "{}") {
+                if (JSON.stringify(response.data) === "{}") {
                     alert("Login or Password is not correct. Please try again.")
+
                 } else {
                     history.push("/body")
                 }
@@ -32,6 +34,8 @@ const LoginSystem = () => {
             )
             .catch(err => {
                 console.log("There is a login Problem:", err);
+
+
             });
 
             event.preventDefault();
@@ -42,7 +46,11 @@ const LoginSystem = () => {
     const loginBox = {
         border : "3px solid #ddd",
         backgroundColor : "#90EE90",
-        padding : "50px"
+        padding : "200px",
+        position : "absolute",
+        left : "50%",
+        top : "50%",
+        transform: 'translate(-50%, -50%)'
     }
 
     useEffect(() => {
@@ -56,21 +64,25 @@ const LoginSystem = () => {
             .post("http://localhost:8080/login", b)
             .then(response => {
                 console.log("Check connection", response);
-                if (JSON.stringify(response.data) == "{}") {
+                if (JSON.stringify(response.data) === "{}") {
                     alert("Connection was successfull.")
+
+                    return <TrafficLight RedOn/>
                 }
             }
             )
             .catch(err => {
                 console.log("Connection problems", err);
                 alert("Connection was not successfull.")
+
+                return <TrafficLight GreenOn/>
             })
 
         return () => clearTimeout(timer)
     }, [])
 
     return(
-        <div style={loginBox}>
+        <Container style={loginBox}>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formGroupUsername">
                     <Form.Label>Username</Form.Label>
@@ -95,8 +107,11 @@ const LoginSystem = () => {
                 </Form.Group>
                 <Button variant="info" type="submit" id="loginButton" block>Submit</Button> 
             </Form>
-
-        </div>
+            <div>
+                <h2>Database Connection</h2>
+            </div>
+            
+        </Container>
     )
     
 }
