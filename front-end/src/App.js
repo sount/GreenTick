@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom'
 import LoginSystem from './Component/Login/LoginSystem';
 
 function App() {
-  document.body.style = "background: #22687B;"
+  document.body.style = "background: #f1fdf1;"
 
   return (
     <Router>

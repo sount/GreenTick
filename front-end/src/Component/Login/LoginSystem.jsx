@@ -45,11 +45,13 @@ const LoginSystem = () => {
     const loginBox = {
         border : "3px solid #ddd",
         backgroundColor : "#90EE90",
-        padding : "100px",
+        padding : "50px",
         position : "absolute",
         left : "50%",
         top : "50%",
+        width: "30%",
         transform: 'translate(-50%, -50%)'
+
     }
 
     const [color, setColor] = useState({redOn : false, greenOn : false})
@@ -106,7 +108,7 @@ const LoginSystem = () => {
                 </Form.Group>
                 <Button variant="info" type="submit" id="loginButton" block>Submit</Button> 
             </Form>
-            <div>
+            <div className="text-center">
                 <h2>Database Connection</h2>
                 <TrafficLight RedOn={color.redOn} GreenOn={color.greenOn}/>
             </div>

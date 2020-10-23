@@ -57,7 +57,7 @@ const Statistics = (props) => {
 
     return (
         <>
-            <h1 style={title}>Stats</h1>
+            <h1 style={title}>Realized Profit/Loss</h1>
             <table style={historyTable}>
                 <thead>
                     <tr style={styleRow}>
