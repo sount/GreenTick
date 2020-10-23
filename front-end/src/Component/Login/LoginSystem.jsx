@@ -19,7 +19,6 @@ const LoginSystem = () => {
     const handleSubmit = (event) => {
 
         let b = {"username":username, "password":password}
-
         axios
             .post("http://localhost:8080/login", b)
             .then(response => {
@@ -46,12 +45,14 @@ const LoginSystem = () => {
     const loginBox = {
         border : "3px solid #ddd",
         backgroundColor : "#90EE90",
-        padding : "200px",
+        padding : "100px",
         position : "absolute",
         left : "50%",
         top : "50%",
         transform: 'translate(-50%, -50%)'
     }
+
+    const [color, setColor] = useState({redOn : false, greenOn : false})
 
     useEffect(() => {
         let b = {"username":"dummy", "password":"dummy"}
@@ -64,23 +65,21 @@ const LoginSystem = () => {
             .post("http://localhost:8080/login", b)
             .then(response => {
                 console.log("Check connection", response);
-                if (JSON.stringify(response.data) === "{}") {
-                    alert("Connection was successfull.")
 
-                    return <TrafficLight RedOn/>
+                if (JSON.stringify(response.data) === "{}") {
+                    setColor({redOn : false, greenOn : true})
+                    alert("Connection was successfull.")
                 }
             }
             )
             .catch(err => {
                 console.log("Connection problems", err);
+                setColor({redOn : true, greenOn : false})
                 alert("Connection was not successfull.")
-
-                return <TrafficLight GreenOn/>
             })
-
         return () => clearTimeout(timer)
-    }, [])
-
+    }, [color])
+    
     return(
         <Container style={loginBox}>
             <Form onSubmit={handleSubmit}>
@@ -109,6 +108,7 @@ const LoginSystem = () => {
             </Form>
             <div>
                 <h2>Database Connection</h2>
+                <TrafficLight RedOn={color.redOn} GreenOn={color.greenOn}/>
             </div>
             
         </Container>
