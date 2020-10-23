@@ -1,7 +1,7 @@
 import requests
 
 #test login
-res = requests.post('http://localhost:8080/login', json={"username":"selvyn", "password":"gradprog2016"})
+res = requests.post('http://localhost:8090/login', json={"username":"selvyn", "password":"gradprog2016"})
 
 if res.ok:
     data = res.json()

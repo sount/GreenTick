@@ -22,7 +22,7 @@ def get_statistical_data():
     cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
                                   database='db_grad_cs_1917')
 
-    query = 'SELECT * FROM deal'
+    query = 'SELECT * FROM deal LIMIT 10'
     # save everythiong for the calculations in a dataframe
     statistic_data_dataframe = pd.read_sql(query, cnx)
 

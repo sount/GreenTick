@@ -27,12 +27,11 @@ def sse_stream():
      return webServiceStream.sse_stream()
 
 
-
-
 @app.route('/login',methods=['GET', 'POST'])
 def login():
 
     credentials = request.json
+
     response_dict = check_credentials(credentials,SECRET_KEY)
 
     return jsonify(response_dict)
@@ -41,6 +40,7 @@ def login():
 @app.route('/statistics', methods=['GET', 'POST'])
 def statistics():
     statistics_request = request.json
+
     if statistics_request["token"] == SECRET_KEY:
         print("Access Granted!")
         # connect do mysql database
@@ -57,6 +57,7 @@ def statistics():
 @app.route('/historicaldata',methods=['GET', 'POST'])
 def historicaldata():
     historical_request = request.json
+
     if historical_request["token"] == SECRET_KEY:
         print("Access Granted!")
         response_dict = get_historical_data(historical_request)
