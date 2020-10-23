@@ -3,8 +3,6 @@ import mysql.connector
 import pandas as pd
 import numpy as np
 
-cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
-                                      database='db_grad_cs_1917')
 
 instrument_name_to_id = {"Astronomica" : 1001,
                          "Borealis" : 1002,
@@ -21,15 +19,15 @@ instrument_name_to_id = {"Astronomica" : 1001,
 instrument_id_to_name = {b : a for a, b in instrument_name_to_id.items()}
 
 
+def connect_to_db():
+    cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
+                                  database='db_grad_cs_1917')
 
-query = 'SELECT * FROM deal'
-# save everything for the calculations in a dataframe
-data = pd.read_sql(query, cnx)
+    return cnx
 
 
 def find_dealer_PL():
-    cnx = mysql.connector.connect(user='root', password='ppp', host="localhost", port=3306,
-                                  database='db_grad_cs_1917')
+    cnx = connect_to_db()
 
     query = 'SELECT * FROM deal'
     # save everything for the calculations in a dataframe
@@ -59,7 +57,13 @@ def find_dealer_PL():
     return ctpy_PL_df
 
 
-def find_average_buy_sell_price(data_dataframe):
+def find_average_buy_sell_price():
+    cnx = connect_to_db()
+
+    query = 'SELECT * FROM deal'
+    # save everything for the calculations in a dataframe
+    data_dataframe = pd.read_sql(query, cnx)
+
     pd.set_option('max_columns', None)
     grouped_data = data_dataframe.groupby(['deal_instrument_id', 'deal_type'])[["deal_quantity", "deal_amount"]]
 
