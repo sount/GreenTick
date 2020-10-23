@@ -4,7 +4,7 @@ import webServiceStream
 from RandomDealData import *
 import pandas as pd
 from utilities_restapi import check_credentials,get_statistical_data,get_historical_data
-from statistic_calculation import  find_dealer_PL
+from statistic_calculation import find_dealer_PL
 
 SECRET_KEY = "greentickteamforthewin"
 app = Flask(__name__)
@@ -46,7 +46,7 @@ def statistics():
         # connect do mysql database
 
         response_dict = find_dealer_PL()
-        return jsonify(response_dict.to_json())
+        return jsonify(response_dict.to_json(orient="index"))
     else:
         print("Access Denied")
         response_dict = {}
