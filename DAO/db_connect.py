@@ -43,6 +43,6 @@ def disconnect_db(cnx):
 if __name__ == '__main__':
     connection, cnx = connect_to_db()
     if connection:
-        _streamSSE('http://127.0.0.1:5000/streamTest/sse', cnx)
+        _streamSSE('http://127.0.0.1:8080/streamTest/sse', cnx)
 
     disconnect_db(cnx)

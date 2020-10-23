@@ -2,9 +2,9 @@ from flask import Flask, request,jsonify
 from flask_cors import CORS
 import webServiceStream
 from RandomDealData import *
-
+import pandas as pd
 from utilities_restapi import check_credentials,get_statistical_data,get_historical_data
-
+from statistic_calculation import  find_dealer_PL
 
 SECRET_KEY = "greentickteamforthewin"
 app = Flask(__name__)
@@ -45,8 +45,8 @@ def statistics():
         print("Access Granted!")
         # connect do mysql database
 
-        response_dict = get_statistical_data()
-        return jsonify(response_dict)
+        response_dict = find_dealer_PL()
+        return jsonify(response_dict.to_json())
     else:
         print("Access Denied")
         response_dict = {}

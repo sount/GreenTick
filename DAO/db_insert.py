@@ -72,7 +72,7 @@ def insert_instrument(cnx):
 
 def insert_counterparty(cnx):
     mycursor = cnx.cursor()
-    ctpy_id = 7001
+    ctpy_id = 701
     ctpy_dict = {}
     counterparties = ("Lewis", "Selvyn", "Richard", "Lina", "John", "Nidia")
     for ctpy in counterparties:
