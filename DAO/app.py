@@ -35,12 +35,6 @@ def sse_stream():
     return Response(eventStream(), mimetype="text/event-stream")
 
 
-def get_time():
-    """this could be any function that blocks until data is ready"""
-    time.sleep(1.0)
-    s = time.ctime(time.time())
-    return s
-
 def bootapp():
     app.run(port=8080, threaded=True, host=('127.0.0.1'))
 
